@@ -1,6 +1,10 @@
 ---
 layout: default
-title: Home Page
+title: 主页 
 ---
 {% include JB/setup %}
-## Home Page 
+### Roy Chen 一个喜欢打篮球和写代码的男生。
+
+<br>
+
+待续...
