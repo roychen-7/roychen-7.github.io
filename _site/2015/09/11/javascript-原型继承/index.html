@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>文章</title>
-    
+    <title>JavaScript原型继承的区别</title>
+    <meta name="description" content="">
     <meta name="author" content="Roy Chen">
 
     <!-- Enable responsive viewport -->
@@ -58,54 +58,106 @@
       <div class="container">
         
 <div class="page-header">
-  <h1>文章 </h1>
+  <h1>JavaScript原型继承的区别 </h1>
+  <div class="date">
+    <span>2015年09月11日</span>
+  </div>
 </div>
 
-<div class="row">
+<div class="row post-full">
   <div class="col-xs-12">
-    
-
-
-
-
-
-  
-    
-    
-    
-    
-  
-    
-      <h2>2015</h2>
-      <h3>09月</h3>
-      <ul>
-    
-  
-    <li><span>2015年09月11日</span> &raquo; <a href="/2015/09/11/%E4%BB%8A%E6%97%A5%E8%AF%AD%E5%BD%95">今日语录</a></li>
-  
-    
-          
-        
+    <div class="content">
       
+<h2 id="section">先贴代码</h2>
+
+<pre><code>// Prototype
+// Object Create
+console.log("Object Create===============");
+gen(function(superClass, subClass) {
+    subClass.prototype = Object.create(superClass.prototype);
+});
+
+// New
+console.log("New===============");
+gen(function(superClass, subClass) {
+    subClass.prototype = new superClass;
+});
+
+function gen (inheritFunc) {
+    // Define super Class
+    var superClass = function() { this.super = 'super'; };
+    superClass.prototype.func1 = function() {console.log(1);}
+    superClass.prototype.func2 = function() {console.log(2);}
+    superClass.prototype.attrSuper = 'attrSuper';
+
+    // Define sub Class
+    var subClass = function() { this.sub = 'sub' };
+    subClass.prototype.func1 = function() {console.log(11);}
+    inheritFunc(superClass, subClass);
+ 
+    // Tester
+    var ins = new subClass();
+
+    ins.func1();
+    ins.func2();
+ 
+    console.log('attr super: ' + ins.attrSuper);
+    console.log('super: ' + ins.super);
+    console.log('sub: ' + ins.sub);
+}
+</code></pre>
+
+<p>Object.create 的做法只针对 Super Class的原型，而不会调用到Super Class的构造方法，所以Super Class内部的this不会生效。</p>
+
+<p>结果</p>
+
+<pre><code>Object Create===============
+1
+2
+attr super: attrSuper
+super: undefined
+sub: sub
+
+New===============
+1
+2
+attr super: attrSuper
+super: super
+sub: sub
+</code></pre>
+
+    </div>
+
     
+
   
-    
-    
-    
-    
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
   
-    
-  
-    <li><span>2015年09月11日</span> &raquo; <a href="/2015/09/11/javascript-%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF">JavaScript原型继承的区别</a></li>
-  
-    
-      </ul>
+     
+    	<li><a href="/tags.html#Javascript-ref">Javascript <span>1</span></a></li>
     
   
 
 
 
-
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev disabled"><a>&larr; 上一篇</a></li>
+    
+      <li><a href="/archive.html">列表</a></li>
+    
+      <li class="next"><a href="/2015/09/11/%E4%BB%8A%E6%97%A5%E8%AF%AD%E5%BD%95" title="今日语录">下一篇 &raquo;</a></li>
+    
+    </ul>
   </div>
 </div>
 
