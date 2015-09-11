@@ -6,4 +6,9 @@ title: 主页
 <h3>Roy Chen 一个喜欢打篮球和写代码的男生。</h3>
 <br>
 <br>
-<p>待续...<p>
+<h3>文章</h3>
+<ul class="posts">
+    {% for post in site.posts %}
+    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+</ul>
