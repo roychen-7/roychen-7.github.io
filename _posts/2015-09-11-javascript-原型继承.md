@@ -76,4 +76,4 @@ Object.create 的做法只针对 Super Class的原型，而不会调用到Super 
         });
     };
 
-这个做法会导致superCtor中构造函数内的属性得不到继承，原因是Object.create根据superCtor的prototype创建的对象，而非直接使用superCtor的构造函数。
+这个做法会导致superCtor中构造函数内的属性得不到继承，个人觉得这种做法限制javascript本身的一些特性，不是很好，不过各位可以根据自己的实际需求来评判是用原生的还是采用new的方式。
