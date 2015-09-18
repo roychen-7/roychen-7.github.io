@@ -61,3 +61,19 @@ Object.create 的做法只针对 Super Class的原型，而不会调用到Super 
     attr super: attrSuper
     super: super
     sub: sub
+
+来看一下Node.js原生的继承方式（util.inherits），代码如下：
+
+    exports.inherits = function(ctor, superCtor) {
+        ctor.super_ = superCtor;
+        ctor.prototype = Object.create(superCtor.prototype, {
+            constructor: {
+            value: ctor,
+            enumerable: false,
+            writable: true,
+            configurable: true
+          }
+        });
+    };
+
+这个做法会导致superCtor中构造函数内的属性得不到继承，原因是Object.create根据superCtor的prototype创建的对象，而非直接使用superCtor的构造函数。
